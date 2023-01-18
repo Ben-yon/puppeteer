@@ -1,0 +1,22 @@
+{
+  "name": "puppeteer",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/Ben-yon/puppeteer.git"
+  },
+  "author": "Benjamin Ikeh",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Ben-yon/puppeteer/issues"
+  },
+  "homepage": "https://github.com/Ben-yon/puppeteer#readme",
+  "dependencies": {
+    "puppeteer": "^19.4.1"
+  }
+}
