@@ -13,5 +13,6 @@ const puppeteer = require("puppeteer");
   })
 
   const is_disabled = await page.$('a.')
+  
 
 })
