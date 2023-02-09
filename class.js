@@ -12,39 +12,37 @@ let scrape = async() =>{
     waitUntil: "load"
   })
 
-  var results = [];
-  var lastPageNumber = 400
+  const is_disabled = await page.$('span.s-pagination-item.s-pagination-next.s-pagination-disabled') !== null
+  console.log(is_disabled)
 
-  for (let index = 0; index < lastPageNumber; index++){
-    //await page.waitForTimeout(5000);
+  // var results = [];
+  // var lastPageNumber = 400
 
-    results = results.concat(await extractEvaluateCall(page))
-    if (index != lastPageNumber - 1){
-      await page.$('a .s-pagination-item .s-pagination-next .s-pagination-button')
-    }``
-  }
+  // for (let index = 0; index < lastPageNumber; index++){
+  //   //await page.waitForTimeout(5000);
+
+  //   results = results.concat(await extractEvaluateCall(page))
+  //   if (index != lastPageNumber - 1){
+  //     await page.$$('#search > div > div > a')
+  //   }``
+  // }
   // browser.close()
-  return results;
+  // return results;
 }
 
-async function extractEvaluateCall(page){
-  return page.evaluate(()=>{
-    let data = []
-    let elements = document.querySelectorAll('.sg-col-inner')
+// async function extractEvaluateCall(page){
+//   return page.evaluate(()=>{
+//     let data = []
+//     let elements = document.querySelectorAll('.sg-col-inner')
 
-    for (let element of elements){
-      //console.log(element)
-      let title = element.childNodes[5];
-      let price = element.childNodes[7];
+//     for (let element of elements){
+//       //console.log(element)
+//       let title = element.childNodes[5];
+//       let price = element.childNodes[7];
 
-      data.push({ title, price })
-    }
-  })
-}
+//       data.push({ title, price })
+//     }
+//   })
+// }
 
-scrape().then((value)=>{
-  console.log(value);
-  console.log("Collection length: "+ value.length);
-  console.log(value[0]);
-  console.log(value[value.length - 1])
-})
+scrape()
