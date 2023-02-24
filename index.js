@@ -2,7 +2,7 @@ const puppeteer = require('puppeteer');
 
 (async () => {
   const browser = await puppeteer.launch({
-    headless: true,
+    headless: false,
     defaultViewport: false,
     userDataDir: './tmp'
   });
@@ -15,7 +15,7 @@ const puppeteer = require('puppeteer');
 
   for (const product of productHandles) {
     let disabledLink = false
-    while(disabledLink){
+    while(!disabledLink){
       let title = ""
       let price = ""
       let image = ""
@@ -33,10 +33,13 @@ const puppeteer = require('puppeteer');
       if (title !== ""){
         items.push({title, price, image})
       }
-      const is_disabled = await page.$$('span .s-pagination-item .s-pagination-next .s-pagination-disabled') !== null
-      console.log(is_disabled)
+      const is_disabled = await page.$$('span.s-pagination-item .s-pagination-next .s-pagination-disabled') !== null
+      //console.log(is_disabled)
       if (!is_disabled === disabledLink){
-        await page.click("a.s-pagination-item.s-pagination-next.s-pagination-separator")
+        try{
+          await page.click('div:nth-child(27) > div > div > span > a.s-pagination-item.s-pagination-next.s-pagination-button.s-pagination-separator')
+        }
+        catch(error){}
       }
     }
   }
