@@ -1,3 +1,4 @@
+const fs = require('fs')
 const puppeteer = require('puppeteer');
 
 (async () => {
@@ -7,10 +8,10 @@ const puppeteer = require('puppeteer');
     userDataDir: './tmp'
   });
   const page = await browser.newPage()
-  await page.goto('https://www.amazon.com/s?i=computers-intl-ship&bbn=16225007011&rh=n%3A16225007011%2Cp_89%3AApple&dc&fs=true&ds=v1%3Aju2opDf4k6YwsPIuTMqjVIB1%2FQaU4Xw3V2cRthXJOXc&qid=1677683905&rnid=2528832011&ref=sr_nr_p_89_1');
+  await page.goto('https://www.amazon.com/s?i=computers-intl-ship&bbn=16225007011&rh=n%3A16225007011%2Cp_89%3ALogitech%2Cp_36%3A1253503011%2Cp_6%3AA1DE4A1USLSZ40%7CATVPDKIKX0DER&dc&fs=true&qid=1677862087&rnid=303116011&ref=sr_nr_p_6_2&ds=v1%3ATb2VMXQxiXgtimNUqykI%2FmHSjk4Uw%2Bws5tDoJX%2BxOuM');
 
 
-  const items = []
+  let items = []
 
   let disabledLink = false
   while (!disabledLink) {
@@ -32,14 +33,19 @@ const puppeteer = require('puppeteer');
       } catch (error) {}
 
       if (title !== "Null") {
-        items.push({
-          title,
-          price,
-          image
+        // items.push({
+        //   title,
+        //   price,
+        //   image
+        // })
+        fs.appendFile('results.csv', `${title},${price},${image}\n`, (err)=>{
+          if(err) throw err;
+          console.log("saved!")
         })
       }
-      //await page.waitForSelector('div > div > span > a.s-pagination-item.s-pagination-next.s-pagination-button.s-pagination-separator', {visible: true})
-      const is_disabled = (await page.$('span.s-pagination-item .s-pagination-next .s-pagination-disabled')) !== null
+      //await page.waitForSelector('div > div > span > a.s-pagination-item.s-pagination-next.s-pagination-button.s-pagination-separator', {visible: true}).catch((error)=> console.log(error))
+      const is_disabled = (await page.$('div > div > span > span.s-pagination-item.s-pagination-next.s-pagination-disabled')) !== null
+      // console.log()
       disabledLink = is_disabled
       if (!is_disabled) {
         try{
@@ -51,8 +57,9 @@ const puppeteer = require('puppeteer');
       }
     }
   }
-  console.log(items)
-  console.log(items.length)
+
+ console.log(items)
+ console.log(items.length)
 
   //await page.screenshot({ path: 'mail.jpg'})
 
