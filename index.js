@@ -33,12 +33,8 @@ const puppeteer = require('puppeteer');
       } catch (error) {}
 
       if (title !== "Null") {
-        // items.push({
-        //   title,
-        //   price,
-        //   image
-        // })
-        fs.appendFile('results.csv', `${title},${price},${image}\n`, (err)=>{
+       
+        fs.appendFile('results.csv', `${title.replace(/,/g, ".")},${price},${image}\n`, (err)=>{
           if(err) throw err;
           console.log("saved!")
         })
@@ -58,10 +54,6 @@ const puppeteer = require('puppeteer');
     }
   }
 
- console.log(items)
- console.log(items.length)
-
-  //await page.screenshot({ path: 'mail.jpg'})
 
   //await browser.close()
 })();
